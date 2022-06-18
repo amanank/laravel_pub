@@ -28,7 +28,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+    
      
     }
 
@@ -52,7 +52,7 @@ class TaskController extends Controller
         $task = new Task;
         $task->name = $request->name;
         $task->save();
-        return back()->with('msg1', 'Task Has Been Created');
+        return back()->with('create', 'Task Has Been Created');
 
     }
 
@@ -99,6 +99,6 @@ class TaskController extends Controller
     public function destroy($id)
     {
         Task::findOrFail($id)->delete();
-        return redirect('/tasks')->with('msg2', 'Task Has Been Deleted');
+        return redirect('/tasks')->with('delete', 'Task Has Been Deleted');
     }
 }

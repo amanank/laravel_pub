@@ -9,13 +9,17 @@
         <!-- Display Validation Errors -->
         @include('common')
 
-        @if(Session::has('msg1'))
-        <div class="alert alert-success">{{Session::get('msg1')}}</div>
+        
+        <!----------------Alert------------------>
+        @if(Session::has('create'))
+        <div class="alert alert-success">{{Session::get('create')}}</div>
         @endif
 
-        @if(Session::has('msg2'))
-        <div class="alert alert-danger">{{Session::get('msg2')}}</div>
+        @if(Session::has('delete'))
+        <div class="alert alert-danger">{{Session::get('delete')}}</div>
         @endif
+
+        <!----------------End Alert----------------------->
  
         <!-- New Task Form -->
         <form action="{{ route('tasks.store') }}" method="POST" class="form-horizontal">
