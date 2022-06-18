@@ -9,7 +9,7 @@
         <!-- Display Validation Errors -->
         @include('common')
 
-        
+
         <!----------------Alert------------------>
         @if(Session::has('create'))
         <div class="alert alert-success">{{Session::get('create')}}</div>
@@ -38,6 +38,28 @@
                     @endif
                 </div>
             </div>
+<!-----------------------------Date------------------------>
+            <div class="form-group date" data-provide="datepicker">
+                <label for="task" class="col-sm-3 control-label ">Date</label>
+                <div class="col-sm-6">
+                    <input type="date" name="date" class="form-control" data-date-format="mm/dd/yyyy">
+                <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-th"></span>
+                </div>
+                </div> 
+            </div>
+
+            <!--------------------Time---------------------------->
+
+            <div class="form-group date" time-provide="timepicker">
+                <label for="task" class="col-sm-3 control-label ">Time</label>
+                    <div class="col-sm-6">
+                        <input type = 'time' name="time" class="form-control" />  
+                        <span class = "input-group-addon">  
+                        <span class = "glyphicon glyphicon-time"></span>  
+                        </span>  
+                    </div>
+            </div>
  
             <!-- Add Task Button -->
             <div class="form-group">
@@ -53,16 +75,19 @@
 
     @if (count($tasks) > 0)
     <div class="panel panel-default pt-4">
-        <div class="panel-heading p-3  border bg-light text-dark">
+        <div class="panel-heading p-3  border bg-light text-dark font-weight-bold">
             Current Tasks
         </div>
 
         <div class="panel-body border">
-            <table class="table table-striped task-table">
+            <table class="table table-striped task-table table-bordered">
 
                 <!-- Table Headings -->
                 <thead>
-                    <th>Task</th>
+                    <th scope="col">#</th>
+                    <th scope="col">Task</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Time</th>
                     <th>&nbsp;</th>
                 </thead>
 
@@ -70,9 +95,21 @@
                 <tbody>
                     @foreach ($tasks as $task)
                         <tr>
+                            <td class="table-text">
+                                <div>
+                                    {{$task->id}}
+                                </div>
+
+                            </td>
                             <!-- Task Name -->
                             <td class="table-text">
                                 <div>{{ $task->name }}</div>
+                            </td>
+                            <td class="table-text">
+                                <div>{{ $task->date }}</div>
+                            </td>
+                            <td class="table-text">
+                                <div>{{ $task->time }}</div>
                             </td>
 
                             <td>

@@ -42,15 +42,21 @@ class TaskController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:12|regex:/^[\p{L}\s-]+$/u',
+            'date' => 'required',
+            'time' => 'required|unique:tasks'
 
         ]);
 
         $validatedData = $request->validate([
             'name' => ['required', 'max:12','regex:/^[\p{L}\s-]+$/u'],
+            'date' =>['required'],
+            'time' =>['required'],
         ]);
 
         $task = new Task;
         $task->name = $request->name;
+        $task->date = $request->date;
+        $task->time = $request->time;
         $task->save();
         return back()->with('create', 'Task Has Been Created');
 
