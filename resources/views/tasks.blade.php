@@ -3,14 +3,23 @@
 @section('content')
  
     <!-- Bootstrap Boilerplate... -->
+
  
     <div class="panel-body border">
         <!-- Display Validation Errors -->
         @include('common')
+
+        @if(Session::has('msg1'))
+        <div class="alert alert-success">{{Session::get('msg1')}}</div>
+        @endif
+
+        @if(Session::has('msg2'))
+        <div class="alert alert-danger">{{Session::get('msg2')}}</div>
+        @endif
  
         <!-- New Task Form -->
-        <form action="/task" method="POST" class="form-horizontal">
-            {{ csrf_field() }}
+        <form action="{{ route('tasks.store') }}" method="POST" class="form-horizontal">
+            @csrf
  
             <!-- Task Name -->
             <div class="panel-heading p-3 mb-2 bg-light text-dark ">
@@ -18,9 +27,11 @@
             </div>
             <div class="form-group">
                 <label for="task" class="col-sm-3 control-label ">Task</label>
- 
                 <div class="col-sm-6">
                     <input type="text" name="name" id="task-name" class="form-control">
+                    @if ($errors->has('name'))
+                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                    @endif
                 </div>
             </div>
  
@@ -34,6 +45,8 @@
             </div>
         </form>
     </div>
+
+
     @if (count($tasks) > 0)
     <div class="panel panel-default pt-4">
         <div class="panel-heading p-3  border bg-light text-dark">
@@ -59,10 +72,13 @@
                             </td>
 
                             <td>
-                                <form action="/task/{{ $task->id }}" method="POST">
+                                <form action="{{route('tasks.destroy', $task->id)}}" method="POST">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <button class="btn btn-danger">Delete Task</button>
+
+                                    <button class="btn btn-danger"><i class="fa-regular fa-trash-can"></i>
+                                        Delete Task
+                                    </button>
                                     <input type="hidden" name="_method" value="DELETE">
                                 </form>
                             </td>
