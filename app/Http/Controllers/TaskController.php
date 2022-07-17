@@ -20,17 +20,17 @@ class TaskController extends Controller
     {
         $request->validate([
             //Validation Rules  
-            'task' => ['required','max:255'],
+            'name' => ['required','max:255'],
         ],[
             //Validation Messages
             'required'=>':attribute Required',
         ],[
             //Validation Attributes
-            'task' =>'Task Name',
+            'name' =>'Task Name',
         ]);
 
         $task = Task::create([
-            'name' => $request->task,
+            'name' => $request->name,
         ]);
 
         return back()->with('success', 'Task Created Successfully');
