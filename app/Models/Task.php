@@ -13,22 +13,22 @@ class Task extends Model
         'name',
     ];
 
-    public function scopeGetTask($query,$columnName='created_at',$order='asc')
+    public function scopeGetAll($query,$columnName='created_at',$order='asc')
     {
             return $query->orderBy($columnName, $order)->get();
     }
 
-    public function scopeDeleteSingleTask($query,$columnValue,$columnName='id')
+    public function scopeDeleteSingle($query,$columnValue,$columnName='id')
     {
             return $query->where($columnName,$columnValue)->first()->delete();
     }
     
-    public function scopeDeleteAllTask($query,$columnValue,$columnName='id')
+    public function scopeDeleteMany($query,$columnValue,$columnName='id')
     {
             return $query->where($columnName, $columnValue)->delete();
     }
 
-    public function scopeEmptyTaskList($query)
+    public function scopeEmptyList($query)
     {
             return $query->delete();
     }
