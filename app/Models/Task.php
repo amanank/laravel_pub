@@ -11,6 +11,8 @@ class Task extends Model
 
     protected $fillable = [
         'name',
+        'due_date',
+        'due_time',
     ];
 
     public function scopeGetAll($query,$columnName='created_at',$order='asc')
