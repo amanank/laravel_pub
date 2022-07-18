@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     public function home()
     {
-        $tasks = Task::orderBy('created_at', 'asc')->get();
+        $tasks = Task::getTask();
  
         return view('task', [
             'tasks' => $tasks
@@ -38,8 +38,15 @@ class TaskController extends Controller
 
     public function deleteTask(Request $request)
     {
-        Task::findOrFail($request->task_id)->delete();
+        Task::deleteSingleTask($request->task_id);
 
         return back()->with('success', 'Task Deleted Successfully');
+    }
+
+    public function deleteAllTask()
+    {
+        Task::emptyTaskList();
+
+        return back()->with('success', 'All Tasks Deleted Successfully');
     }
 }
