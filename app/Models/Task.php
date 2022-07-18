@@ -12,5 +12,24 @@ class Task extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function scopeGetAll($query,$columnName='created_at',$order='asc')
+    {
+            return $query->orderBy($columnName, $order)->get();
+    }
+
+    public function scopeDeleteSingle($query,$columnValue,$columnName='id')
+    {
+            return $query->where($columnName,$columnValue)->first()->delete();
+    }
     
+    public function scopeDeleteMany($query,$columnValue,$columnName='id')
+    {
+            return $query->where($columnName, $columnValue)->delete();
+    }
+
+    public function scopeEmptyList($query)
+    {
+            return $query->delete();
+    }
 }

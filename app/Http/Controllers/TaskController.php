@@ -9,7 +9,7 @@ class TaskController extends Controller
 {
     public function home()
     {
-        $tasks = Task::orderBy('created_at', 'asc')->get();
+        $tasks = Task::getAll();
  
         return view('task', [
             'tasks' => $tasks
@@ -20,17 +20,17 @@ class TaskController extends Controller
     {
         $request->validate([
             //Validation Rules  
-            'task' => ['required','max:255'],
+            'name' => ['required','max:255'],
         ],[
             //Validation Messages
             'required'=>':attribute Required',
         ],[
             //Validation Attributes
-            'task' =>'Task Name',
+            'name' =>'Task Name',
         ]);
 
         $task = Task::create([
-            'name' => $request->task,
+            'name' => $request->name,
         ]);
 
         return back()->with('success', 'Task Created Successfully');
@@ -38,8 +38,15 @@ class TaskController extends Controller
 
     public function deleteTask(Request $request)
     {
-        Task::findOrFail($request->task_id)->delete();
+        Task::deleteSingle($request->task_id);
 
         return back()->with('success', 'Task Deleted Successfully');
+    }
+
+    public function deleteAllTask()
+    {
+        Task::emptyList();
+
+        return back()->with('success', 'All Tasks Deleted Successfully');
     }
 }

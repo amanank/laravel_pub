@@ -32,3 +32,8 @@ Route::post('/task', [TaskController::class,'store'])->name('task.store');
  * Delete An Existing Task
  */
 Route::post('/delete-task',[TaskController::class,'deleteTask'])->name('task.delete');
+
+/**
+ * Delete All Existing Tasks
+ */
+Route::post('/delete-all-task',[TaskController::class,'deleteAllTask'])->name('task.delete.all');

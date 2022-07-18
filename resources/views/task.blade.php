@@ -15,7 +15,7 @@
                         @csrf
                         <div class="mb-3">
                           <label for="exampleInputEmail1" class="form-label">Task</label>
-                          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="task">
+                          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name">
                         </div>
                         <button type="submit" class="btn btn-primary">+ Add Task</button>
                       </form>
@@ -32,6 +32,15 @@
                 <h5 class="card-header">Current Tasks</h5>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        <form style="display: inline !important;" action="{{route('task.delete.all')}}" method="POST">
+                          @csrf
+                          <input type="hidden" name="task_id" value="">
+                          <div style="display: inline !important;">
+                            <button type="submit" class="btn btn-primary float-end">Delete All</button>
+                          </div>
+                        </form>
+                      </li>
                         @foreach ($tasks as $task)
                         <li class="list-group-item">{{$task->name}}
                             <form style="display: inline !important;" action="{{route('task.delete')}}" method="POST">
