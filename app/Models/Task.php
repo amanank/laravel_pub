@@ -34,4 +34,9 @@ class Task extends Model
     {
             return $query->delete();
     }
+
+    public function scopeUniqueDateTimeCount($query,$date,$time)
+    {
+            return $query->where('due_date',$date)->where('due_time',$time)->count();
+    }
 }

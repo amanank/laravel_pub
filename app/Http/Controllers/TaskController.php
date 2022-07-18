@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Rules\TaskUniqueDateTime;
 
 class TaskController extends Controller
 {
@@ -22,7 +23,7 @@ class TaskController extends Controller
             //Validation Rules  
             'name' => ['required','max:255'],
             'due_date' => ['required','max:255'],
-            'due_time' => ['required','max:255'],
+            'due_time' => ['required','max:255',new TaskUniqueDateTime($request->due_date)],
         ],[
             //Validation Messages
             'required'=>':attribute Required',
@@ -32,11 +33,6 @@ class TaskController extends Controller
             'due_date' =>'Due Date',
             'due_time' =>'Due Time',
         ]);
-
-        if(Task::where('due_date',$request->due_date)->where('due_time',$request->due_time)->get())
-        {
-            return back()->withErrors(['msg' => 'A task with same date and time already exists']);
-        }
 
         $task = Task::create([
             'name' => $request->name,

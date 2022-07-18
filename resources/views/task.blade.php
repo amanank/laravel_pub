@@ -53,20 +53,15 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Item 1</td>
-                            <td>Item 2</td>
-                            <td>Item 3</td>
-                            <td>Item 4</td>
-                            <td>Item 5</td>
-                        </tr>
-                        <tr>
-                          <td>Item 6</td>
-                          <td>Item 7</td>
-                          <td>Item 8</td>
-                          <td>Item 9</td>
-                          <td>Item 10</td>
-                        </tr>
+                      @foreach ($tasks as $task)
+                      <tr>
+                        <td>{{$task->id}}</td>
+                        <td>{{$task->name}}</td>
+                        <td>{{$task->due_date}}</td>
+                        <td>{{$task->due_time}}</td>
+                        <td>{{$task->created_at}}</td>
+                    </tr>  
+                      @endforeach
                     </tbody>
                 </table>
                   
