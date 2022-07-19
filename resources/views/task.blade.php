@@ -3,7 +3,7 @@
 @section('content')
 
         
-@include('common.errors')
+{{-- @include('common.errors') --}}
 @include('common.success')
     <div class="row d-flex justify-content-center mt-5">
        
@@ -11,20 +11,41 @@
             <div class="card ">
                 <h5 class="card-header">New Task</h5>
                 <div class="card-body">
-                    <form action="{{route('task.store')}}" method="POST">
+                    <form action="{{route('task.store')}}" method="POST" class="row g-3">
                         @csrf
                         <div class="mb-3">
                           <label for="task" class="form-label">Task</label>
-                          <input type="text" class="form-control" id="task" aria-describedby="emailHelp" name="name" value="{{old('name')}}">
+                          <input type="text" class="form-control {{$errors->has('name')? 'is-invalid' : (old('name')? 'is-valid' : '')}}" id="task" aria-describedby="emailHelp" name="name" value="{{old('name')}}">
+                          @error('name')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                          @enderror
                         </div>
-                        <div class="mb-3">
-                          <label for="dueDate" class="form-label">Due Date</label>
-                          <input type="date" class="form-control" id="dueDate" aria-describedby="emailHelp" name="due_date" value="{{old('due_date')}}">
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="dueDate" class="form-label">Due Date</label>
+                            <input type="date" class="form-control {{$errors->has('due_date')? 'is-invalid' : (old('due_date')? 'is-valid' : '')}}" id="dueDate" aria-describedby="emailHelp" name="due_date" value="{{old('due_date')}}">
+                            @error('due_date')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                          </div>
                         </div>
-                        <div class="mb-3">
-                          <label for="dueTime" class="form-label">Due Time</label>
-                          <input type="time" class="form-control" id="dueTime" aria-describedby="emailHelp" name="due_time" value="{{old('due_time')}}">
+                        
+                        <div class="col-md-6">
+                          <div class="mb-3">
+                            <label for="dueTime" class="form-label">Due Time</label>
+                            <input type="time" class="form-control {{$errors->has('due_time')? 'is-invalid' : (old('due_time')? 'is-valid' : '')}}" id="dueTime" aria-describedby="emailHelp" name="due_time" value="{{old('due_time')}}">
+                            @error('due_time')
+                            <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                            </span>
+                          @enderror
+                          </div>
                         </div>
+                        
                         <button type="submit" class="btn btn-primary">+ Add Task</button>
                       </form>
                 </div>
