@@ -22,8 +22,8 @@ class TaskController extends Controller
         $request->validate([
             //Validation Rules  
             'name' => ['required','max:255'],
-            'due_date' => ['required','max:255'],
-            'due_time' => ['required','max:255',new TaskUniqueDateTime($request->due_date)],
+            'due_date' => ['required','max:10'],
+            'due_time' => ['required','max:5',new TaskUniqueDateTime($request->due_date)],
         ],[
             //Validation Messages
             'required'=>':attribute Required',
