@@ -24,6 +24,7 @@ services:
       - ".:/var/www/html"
       - "./php.ini:/usr/local/etc/php/conf.d/custom.ini"
     mem_limit: 2G
+    
 networks:
   default:
     name: proxy
