@@ -17,8 +17,11 @@ class TaskController extends Controller
     }
     public function store(Request $request)
     {
+       
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
+            'date' => 'required',
+            'time' => 'required',
         ]);
      
         if ($validator->fails()) {
@@ -28,7 +31,21 @@ class TaskController extends Controller
         }
      
         $task = new Task;
+        $dataTime = explode(' ', $request->date);
+       
+        $date = $dataTime[1];
+        $time = $dataTime[0];
+        $data = Task::where('date', $date)->where('time',$time.$request->time)->first();
+     
+        if(isset($data->id))
+        {
+            return redirect('/')
+            ->withInput()
+            ->withErrors('Already Exist'); 
+        }
         $task->name = $request->name;
+        $task->date = $date;
+        $task->time = $time.$request->time;
         $task->save();
      
         return redirect('/');

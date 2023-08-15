@@ -15,7 +15,21 @@
                     <!-- New Task Form -->
                     <form action="{{ url('task')}}" method="POST" class="form-horizontal">
                         {{ csrf_field() }}
-
+                        <div class="form-group">
+                            <label for="due_date"  class="col-sm-3 control-label">Due Date Time:</label>
+                            <div class="col-sm-6">
+                            <input type="text" id="datepicker" name="date" class="form-control" placeholder="Select a date">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="due_time"  class="col-sm-3 control-label">Due Time:</label>
+                            <div class="col-sm-6">
+                                <select id="due_time" name="time" class="form-control">
+                                    <option value="AM">AM</option>
+                                    <option value="PM">PM</option>
+                                </select>
+                            </div>
+                        </div>
                         <!-- Task Name -->
                         <div class="form-group">
                             <label for="task-name" class="col-sm-3 control-label">Task</label>
@@ -60,7 +74,7 @@
                                             <form action="{{ url('task/'.$task->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
-
+                                                <p>{{ $task->date }} {{ $task->time }}</p>
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fa fa-btn fa-trash"></i>Delete
                                                 </button>

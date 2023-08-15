@@ -13,6 +13,7 @@
 
     <!-- Styles -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}}
 
     <style>
@@ -44,6 +45,16 @@
     <!-- JavaScripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script>
+    jQuery(document).ready(function () {
+        jQuery('#datepicker').flatpickr({
+            enableTime: true, // Set to true if you want to include time
+            dateFormat: 'H-i-s Y-m-d', // Change format as needed
+             time_24hr: false, // Use 12-hour format (AM/PM)
+        });
+    });
+     </script>
 </body>
 </html>
