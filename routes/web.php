@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,43 +21,8 @@ use Illuminate\Support\Facades\Validator;
 /**
  * Display All Tasks
  */
-Route::get('/', function () {
-    $tasks = Task::orderBy('created_at', 'asc')->get();
+Route::get('/', [TaskController::class, 'index']);
 
-    return view('tasks', [
-        'tasks' => $tasks
-    ]);
-});
+Route::delete('/task/{id}',[TaskController::class,'delete'] );
 
-
-/**
- * Add A New Task
- */
-
-
-/**
- * Delete An Existing Task
- */
-Route::delete('/task/{id}', function ($id) {
-    Task::findOrFail($id)->delete();
-
-    return redirect('/');
-});
-
-Route::post('/task', function (Request $request) {
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|max:255',
-    ]);
-
-    if ($validator->fails()) {
-        return redirect('/')
-            ->withInput()
-            ->withErrors($validator);
-    }
-
-    $task = new Task;
-    $task->name = $request->name;
-    $task->save();
-
-    return redirect('/');
-});
+Route::post('/task', [TaskController::class,'validat'])->name('validat');
