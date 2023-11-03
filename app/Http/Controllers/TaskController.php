@@ -3,30 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class TaskController extends Controller {
     public function index() {
-        $tasks = Task::orderBy('created_at', 'asc')->get();
+       
 
         return view('tasks', [
-            'tasks' => $tasks
+            'tasks' => Task::search()
         ]);
     }
-    public function delete(){
-        function ($id) {
+    public function delete($id){
+         
             Task::findOrFail($id)->delete();
 
             return redirect('/');
-        };
+        
     }
-    public function  validat(Request $request) {
+    public function  update(Request $request) {
 
          
             $validator = FacadesValidator::make($request->all(), [
-                'name' => 'required|max:255',
+                'name' => 'required|max:20',
+            'name' => 'required|min:2',
             ]);
 
             if ($validator->fails()) {
@@ -34,11 +34,13 @@ class TaskController extends Controller {
                     ->withInput()
                     ->withErrors($validator);
             }
-            $task = new Task;
-            $task->name = $request->name;
-            $task->save();
-
+        // $task = new Task;
+        // $task->name = $request->name;
+        // $task->save();
+        return view('tasks', [
+            'tasks' => Task::store($request)
+        ]);
             return redirect('/');
-        }
+    }
     }
 

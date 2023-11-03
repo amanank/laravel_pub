@@ -2,21 +2,23 @@
 @section('content')
 <div class="container  mx-auto " style="width: 900px;">
     <div class="panel-body">
-        
+
         @include('common.errors')
-        <form action="/task" method="POST" class="form-horizontal">
+        <form action="/task" method="POST" class="form-horizontal needs-validation" novalidate>
             {{ csrf_field() }}
             <div class="form-group">
-                <label for="task" class="col-sm-3 control-label">Task</label>
+                <label for="task validation01" class="col-sm-3 form-label">Task</label>
 
-                <div class="col-sm-6">
-                    <input type="text" name="name" id="task-name" class="form-control">
-
+                <div class="col-sm-6  has-validation">
+                    <input type="text" class="form-control" name="name" id="task-name  validation01" aria-describedby="inputgroupPrepend" required>
+                    <div class="invalid-feedback alert">
+                        Please choose a Task.
+                    </div>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" >
+                    <button type="submit">
                         <i class="fa fa-plus"></i> Add Task
                     </button>
                 </div>
@@ -43,11 +45,11 @@
 
                         <td>
                         <td>
-                            <form action="/task/{{ $task->id }}" method="POST" >
+                            <form action="/task/{{ $task->id }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
 
-                                <button class="btn btn-danger">Delete Task
+                                <button onclick="alert()" id="demo" class="btn btn-danger">Delete Task
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
 
@@ -65,3 +67,14 @@
     @endif
 </div>
 @endsection
+<script>
+    function alert() {
+        var txt;
+        if (confirm("Press a button!")) {
+            txt = "deleted";
+        } else {
+            // txt = " Cancel!";
+        }
+        document.getElementById("demo").innerHTML = txt;
+    }
+</script>
