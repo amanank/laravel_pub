@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Task;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class TaskController extends Controller {
     public function index() {
@@ -24,7 +25,7 @@ class TaskController extends Controller {
     public function  validat(Request $request) {
 
          
-            $validator = Validator::make($request->all(), [
+            $validator = FacadesValidator::make($request->all(), [
                 'name' => 'required|max:255',
             ]);
 
