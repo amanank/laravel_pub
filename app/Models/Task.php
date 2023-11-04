@@ -14,6 +14,8 @@ class Task extends Model {
     public static function store( $request) {
         $task = new Task;
         $task->name = $request->name;
+        $task->date = $request->date;
+        $task->time = $request->time;
         $task->save();
     }
 }

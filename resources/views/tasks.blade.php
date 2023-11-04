@@ -10,17 +10,25 @@
                 <label for="task validation01" class="col-sm-3 form-label">Task</label>
 
                 <div class="col-sm-6  has-validation">
-                    <input type="text" class="form-control" name="name" id="task-name  validation01" aria-describedby="inputgroupPrepend" required>
+                    <input type="text" class="form-control" name="name" id="task-name  validation01" aria-describedby="inputgroupPrepend" value="{{ old('name') }}" required>
+                    <input name="date" type="date" value="{{ old('date') }}">
+                    <!-- <input name="time" type="text"> -->
+                    <select name="time">
+                        <option>AM</option>
+                        <option>PM</option>
+                    </select>
                     <div class="invalid-feedback alert">
                         Please choose a Task.
                     </div>
                 </div>
             </div>
+
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
                     <button type="submit">
                         <i class="fa fa-plus"></i> Add Task
                     </button>
+
                 </div>
             </div>
         </form>
@@ -34,6 +42,9 @@
             <table class="table table-striped task-table">
                 <thead>
                     <th>Task</th>
+                    <th>date </th>
+                    <th>time</th>
+
                     <th>&nbsp;</th>
                 </thead>
                 <tbody>
@@ -41,8 +52,16 @@
                     <tr>
                         <td class="table-text">
                             <div>{{ $task->name }}</div>
-                        </td>
 
+
+                        </td>
+                        <td>
+                            <div>{{ $task->date }}</div>
+
+                        </td>
+                        <td>
+                            <div>{{ $task->time }}</div>
+                        </td>
                         <td>
                         <td>
                             <form action="/task/{{ $task->id }}" method="POST">
