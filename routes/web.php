@@ -17,11 +17,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-/**
- * Display All Tasks
- */
+
 Route::get('/', [TaskController::class, 'index']);
-
 Route::delete('/task/{id}',[TaskController::class,'delete'] );
-
 Route::post('/task', [TaskController::class,'update']);

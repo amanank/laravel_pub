@@ -8,38 +8,26 @@ use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class TaskController extends Controller {
     public function index() {
-       
-
         return view('tasks', [
             'tasks' => Task::search()
         ]);
     }
+
     public function delete($id){
-         
             Task::findOrFail($id)->delete();
-
             return redirect('/');
-        
     }
+
     public function  update(Request $request) {
-
-         
             $validator = FacadesValidator::make($request->all(), [
-                'name' => 'required|max:20',
-            'name' => 'required|min:2',
+                'name' => 'required|max:20|min:2' ,
             ]);
-
             if ($validator->fails()) {
                 return redirect('/')
                     ->withInput()
                     ->withErrors($validator);
             }
-        // $task = new Task;
-        // $task->name = $request->name;
-        // $task->save();
-        return view('tasks', [
-            'tasks' => Task::store($request)
-        ]);
+        Task::store($request);
             return redirect('/');
     }
     }
