@@ -21,8 +21,8 @@ class TaskController extends Controller {
     public function  update(Request $request) {
         $validator = FacadesValidator::make($request->all(), [
             'name' => 'required|max:20|min:2',
-            'date' =>
-            'required|date|unique:tasks,date',
+            'date'
+            => 'required|date|unique:tasks,date',
             'time' => 'required|',
         ]);
         if ($validator->fails()) {
