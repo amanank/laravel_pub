@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Illuminate\Validation\Rule as ValidationRule;
 
 class TaskController extends Controller {
     public function index() {
@@ -21,9 +23,11 @@ class TaskController extends Controller {
     public function  update(Request $request) {
         $validator = FacadesValidator::make($request->all(), [
             'name' => 'required|max:20|min:2',
-            'date'
-            => 'required|date|unique:tasks,date',
-            'time' => 'required|',
+            'date' => [
+                ValidationRule::unique('tasks', 'date')->where(function ($query) use ($request) {
+                    return $query->where('time', $request->time);
+                })
+            ],
         ]);
         if ($validator->fails()) {
             return redirect('/')
