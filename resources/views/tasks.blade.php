@@ -29,6 +29,10 @@
                     </select>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <label for="task validation01" class="col-sm-3 form-label">new_Date</label>
+                <input class="form-control" name="datetime" type="datetime" value="{{ old('date') }}">
+            </div>
             <BR>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
@@ -51,7 +55,7 @@
                     <th>Task</th>
                     <th>Date </th>
                     <th>Time</th>
-                    <th></th>
+                    <th> </th>
                     <th>Delete the Task</th>
                 </thead>
                 <tbody>

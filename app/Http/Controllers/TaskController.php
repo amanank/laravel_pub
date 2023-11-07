@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
-use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Illuminate\Validation\Rule as ValidationRule;
@@ -25,7 +24,7 @@ class TaskController extends Controller {
             'name' => 'required|max:20|min:2',
             'date' => [
                 ValidationRule::unique('tasks', 'date')->where(function ($query) use ($request) {
-                    return $query->where('time', $request->time);
+                    return $query->where('time', $request->all());
                 })
             ],
         ]);
