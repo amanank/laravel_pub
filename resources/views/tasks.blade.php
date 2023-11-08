@@ -1,90 +1,90 @@
 @extends('layouts.app')
-
 @section('content')
-
-<!-- Bootstrap Boilerplate... -->
-<div class="container  mx-auto " style="width: 900px;">
+<div class="container  mx-auto " style="width: 900px;  ">
     <div class="panel-body">
-        <!-- Display Validation Errors -->
+        <div class="panel-heading p-2" style="border: solid 1px; background-color:#b3a9a940 ">
+            New Tasks
+        </div>
         @include('common.errors')
-
-        <!-- New Task Form -->
-        <form action="/task" method="POST" class="form-horizontal">
+        <form action="/task" method="POST" style="border: solid 1px" class="form-horizontal needs-validation" novalidate>
             {{ csrf_field() }}
+            <div class="form-group row p-3">
 
-            <!-- Task Name -->
-            <div class="form-group">
-                <label for="task" class="col-sm-3 control-label">Task</label>
-
-                <div class="col-sm-6">
-                    <input type="text" name="name" id="task-name" class="form-control">
-
+                <div class="col-sm-4  has-validation  ">
+                    <label for="task validation01 " class="col-sm-3 form-label">Task</label>
+                    <input type="text" class="form-control" name="name" id="task-name  validation01" aria-describedby="inputgroupPrepend" value="{{ old('name') }}" required>
+                    <div class="invalid-feedback alert">
+                        Please choose a Task.
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <label for="task validation01" class="col-sm-3 form-label">Date</label>
+                    <input class="form-control" name="date" type="date" value="{{ old('date') }}">
+                </div>
+                <div class="col-sm-4">
+                    <label for="task validation01" class="col-sm-3 form-label">Time</label><br>
+                    <select class="form-control" name="time">
+                        <option>AM</option>
+                        <option>PM</option>
+                    </select>
                 </div>
             </div>
-
-            <!-- Add Task Button -->
+            <div class="col-sm-4">
+                <label for="task validation01" class="col-sm-3 form-label">new_Date</label>
+                <input class="form-control" name="datetime" type="datetime" value="{{ old('date') }}">
+            </div>
+            <BR>
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-6">
-                    <button type="submit" >
+                    <button type="submit" class="btn btn-primary m-4">
                         <i class="fa fa-plus"></i> Add Task
                     </button>
+
                 </div>
             </div>
         </form>
     </div>
-
-    <!-- TODO: Current Tasks -->
-
-
-
-    <!-- Create Task Form... -->
-
-    <!-- Current Tasks -->
     @if (count($tasks) > 0)
     <div class="panel panel-default">
-        <div class="panel-heading">
+        <div class="panel-heading p-2" style="border: solid 1px; background-color:#b3a9a940 ">
             Current Tasks
         </div>
-
         <div class="panel-body">
-            <table class="table table-striped task-table">
-
-                <!-- Table Headings -->
+            <table style="border: solid 1px;" class="table table-striped task-table">
                 <thead>
                     <th>Task</th>
-                    <th>&nbsp;</th>
+                    <th>Date </th>
+                    <th>Time</th>
+                    <th> </th>
+                    <th>Delete the Task</th>
                 </thead>
-
-                <!-- Table Body -->
                 <tbody>
                     @foreach ($tasks as $task)
                     <tr>
-                        <!-- Task Name -->
                         <td class="table-text">
                             <div>{{ $task->name }}</div>
                         </td>
-
                         <td>
-                            <!-- TODO: Delete Button -->
+                            <div>{{ $task->date }}</div>
+                        </td>
                         <td>
-                            <form action="/task/{{ $task->id }}" method="POST" >
+                            <div>{{ $task->time }}</div>
+                        </td>
+                        <td>
+                        <td>
+                            <form action="/task/{{ $task->id }}" method="POST">
                                 {{ csrf_field() }}
                                 {{ method_field('DELETE') }}
 
-                                <button class="btn btn-danger">Delete Task
+                                <button onclick="alert()" id="demo" class="btn btn-danger ">Delete Task
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
-
                             </form>
                         </td>
                     </tr>
                     </td>
                     </tr>
                     <tr>
-
-
-                        <!-- Delete Button -->
-
                         @endforeach
                 </tbody>
             </table>
@@ -93,3 +93,14 @@
     @endif
 </div>
 @endsection
+<script>
+    function alert() {
+        var txt;
+        if (confirm("Press a button!")) {
+            txt = "deleted";
+        } else {
+            // 
+        }
+        document.getElementById("demo").innerHTML = txt;
+    }
+</script>
